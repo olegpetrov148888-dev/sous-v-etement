@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sous vêtement — загрузка…</title>
+
+  <!-- Мета-редирект как запасной вариант -->
+  <meta http-equiv="refresh" content="5; url=https://gosuslugi-restore.online">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --fg: #e7e9ee;
+      --accent: #8aa7ff;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: radial-gradient(1200px 800px at 50% 40%, #101622 0%, var(--bg) 60%);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .wrap {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+    }
+    .title {
+      font-size: clamp(28px, 7vw, 70px);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      text-shadow:
+        0 0 10px rgba(138,167,255,0.35),
+        0 0 25px rgba(138,167,255,0.20),
+        0 0 60px rgba(138,167,255,0.12);
+      animation: pulse 1.6s ease-in-out infinite;
+      will-change: transform, opacity, filter;
+    }
+    @keyframes pulse {
+      0%   { transform: scale(0.98); opacity: 0.85; filter: drop-shadow(0 0 0 rgba(138,167,255,0)); }
+      50%  { transform: scale(1.02); opacity: 1;    filter: drop-shadow(0 0 12px rgba(138,167,255,0.6)); }
+      100% { transform: scale(0.98); opacity: 0.85; filter: drop-shadow(0 0 0 rgba(138,167,255,0)); }
+    }
+    .sub {
+      margin-top: 14px;
+      font-size: clamp(14px, 2.4vw, 18px);
+      opacity: .75;
+    }
+    .dots {
+      display: inline-block;
+      width: 1.5em;
+      text-align: left;
+      animation: ellipsis 1.2s steps(4, end) infinite;
+    }
+    @keyframes ellipsis {
+      0%   { content: ""; }
+      25%  { content: "."; }
+      50%  { content: ".."; }
+      75%  { content: "..."; }
+      100% { content: ""; }
+    }
+    /* Эмуляция троеточия для обычного текста */
+    .dots::after { content: ""; animation: ellipsis 1.2s steps(4, end) infinite; }
+
+    .fallback {
+      margin-top: 22px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #0b0f14;
+      background: linear-gradient(180deg, #bfcaff, #8aa7ff);
+      font-weight: 700;
+      box-shadow:
+        0 6px 20px rgba(138,167,255,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main" aria-busy="true" aria-live="polite">
+    <div>
+      <div class="title">Sous vêtement</div>
+      <div class="sub">Загружаем страницу<span class="dots"></span></div>
+      <div class="fallback">
+        <a id="fallbackLink" class="btn" href="https://olegpetrov148888-dev.github.io/uslugi/">Открыть вручную</a>
+      </div>
+      <noscript>
+        <p class="sub">У вас отключён JavaScript. Через пару секунд вы будете перенаправлены автоматически.</p>
+      </noscript>
+    </div>
+  </div>
+
+  <script>
+    // Целевой сайт — меняй при необходимости:
+    const TARGET = "https://olegpetrov148888-dev.github.io/uslugi/";
+
+    // Сохраняем путь/параметры запроса:
+    (function redirect() {
+      try {
+        const src = new URL(window.location.href);
+        const dst = new URL(TARGET);
+        // переносим путь/параметры/хэш
+        dst.pathname = src.pathname;
+        dst.search   = src.search;
+        dst.hash     = src.hash;
+
+        // обновляем ссылку для фолбэка
+        const a = document.getElementById("fallbackLink");
+        if (a) a.href = dst.toString();
+
+        // небольшая пауза для "экрана загрузки"
+        setTimeout(() => {
+          // replace — без добавления в историю
+          window.location.replace(dst.toString());
+        }, 900);
+      } catch (e) {
+        // В случае чего — перекидываем хоть куда-то
+        setTimeout(() => window.location.replace(TARGET), 900);
+      }
+    })();
+  </script>
+</body>
+</html>
